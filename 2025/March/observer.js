@@ -44,7 +44,7 @@ var unsubscribe3 = counter.subscribe(function (data) {
 });
 console.log("Incrementing count...");
 counter.increment();
-console.log("Setting user...");
+console.log("Setting count...");
 counter.set(3);
 console.log("Unsubscribing observer 1...");
 unsubscribe1();

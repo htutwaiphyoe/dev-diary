@@ -1,17 +1,17 @@
-type Observe = (data: any) => void;
+type Observe<T> = (data: T) => void;
 
-class Observer {
-  observers: Set<Observe>;
+class Observer<T> {
+  observers: Set<Observe<T>>;
 
   constructor() {
     this.observers = new Set();
   }
 
-  subscribe(observer: Observe) {
+  subscribe(observer: Observe<T>) {
     this.observers.add(observer);
   }
 
-  unsubscribe(observer: Observe) {
+  unsubscribe(observer: Observe<T>) {
     this.observers.delete(observer);
   }
 
@@ -23,9 +23,9 @@ class Observer {
 class Counter {
   private count = 0;
 
-  private observer = new Observer();
+  private observer = new Observer<number>();
 
-  subscribe(callback: Observe) {
+  subscribe(callback: Observe<number>) {
     this.observer.subscribe(callback);
     return () => this.observer.unsubscribe(callback);
   }
@@ -57,7 +57,7 @@ const unsubscribe3 = counter.subscribe((data) => {
 console.log("Incrementing count...");
 counter.increment();
 
-console.log("Setting user...");
+console.log("Setting count...");
 counter.set(3);
 
 console.log("Unsubscribing observer 1...");
